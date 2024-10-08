@@ -23,9 +23,6 @@ Thumbs.db
 # Configuration files (API keys, credentials)
 config/config.yaml
 
-# PDF outputs
-*.pdf
-
 # Jupyter notebooks (if you use them)
 .ipynb_checkpoints/
 
