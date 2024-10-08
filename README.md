@@ -1,6 +1,12 @@
 # **Twitter Newspaper**
 
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
+![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
 **Twitter Newspaper** is a tool that extracts tweets from your Twitter feed, summarizes them using AI, formats the summarized content into a newspaper-style PDF, and emails it to you every morning. This allows you to receive a daily digest of relevant information from your feed in a clean, readable format.
+
+![Logo](img/logo.webp)
 
 ## **Current Capabilities**
 
