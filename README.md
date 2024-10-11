@@ -1,10 +1,10 @@
-# **Twitter Newspaper**
+# **Times of Twitter**
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-**Twitter Newspaper** is a tool that extracts tweets from your Twitter feed, summarizes them using AI, formats the summarized content into a newspaper-style PDF, and emails it to you every morning. This allows you to receive a daily digest of relevant information from your feed in a clean, readable format.
+**Times of Twitter** is a tool that extracts tweets from your Twitter feed, summarizes them using AI, formats the summarized content into a newspaper-style PDF, and emails it to you every morning. This allows you to receive a daily digest of relevant information from your feed in a clean, readable format.
 
 ![Logo](img/logo.webp)
 
@@ -47,8 +47,8 @@ Twitter_Newspaper/
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/ashrithssreddy/Twitter_Newspaper.git
-   cd Twitter_Newspaper
+   git clone https://github.com/ashrithssreddy/Times_of_Twitter.git
+   cd Times_of_Twitter
    ```
 
 2. **Install dependencies**:
