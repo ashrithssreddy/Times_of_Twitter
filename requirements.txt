@@ -1,0 +1,15 @@
+# For Twitter API interaction
+tweepy==4.13.0
+
+# For AI summarization
+transformers==4.27.1
+torch==2.0.1
+
+# For PDF generation
+reportlab==3.6.12
+
+# For sending emails
+smtplib3==0.4.1
+
+# Optional: If you want to use a .env file to store sensitive data
+python-dotenv==1.0.0
