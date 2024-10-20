@@ -6,19 +6,23 @@ from the user's timeline using the Tweepy library.
 """
 
 import tweepy
-import os
+import yaml
+
+# Load credentials from config.yaml
+with open("config/config.yaml", "r") as file:
+    config = yaml.safe_load(file)
 
 def authenticate_twitter():
     """
-    Authenticates with the Twitter API using credentials stored in environment variables.
+    Authenticates with the Twitter API using credentials from config.yaml.
 
     Returns:
         api (tweepy.API): Authenticated Tweepy API object.
     """
-    api_key = os.getenv('TWITTER_API_KEY')
-    api_secret = os.getenv('TWITTER_API_SECRET')
-    access_token = os.getenv('TWITTER_ACCESS_TOKEN')
-    access_token_secret = os.getenv('TWITTER_ACCESS_TOKEN_SECRET')
+    api_key = config['twitter']['api_key']
+    api_secret = config['twitter']['api_key_secret']
+    access_token = config['twitter']['access_token']
+    access_token_secret = config['twitter']['access_token_secret']
 
     auth = tweepy.OAuthHandler(api_key, api_secret)
     auth.set_access_token(access_token, access_token_secret)

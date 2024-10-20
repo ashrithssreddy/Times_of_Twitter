@@ -17,14 +17,13 @@ def load_summarizer():
     summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
     return summarizer
 
-def summarize_tweets(tweets, summarizer, max_length=100):
+def summarize_tweets(tweets, summarizer):
     """
     Summarizes a list of tweets using the provided summarizer model.
 
     Args:
         tweets (list): List of tweets to be summarized.
         summarizer (Pipeline): Hugging Face model pipeline for summarization.
-        max_length (int): Maximum length of the summary.
 
     Returns:
         summarized_tweets (list): List of dictionaries with summarized tweets.
@@ -37,7 +36,7 @@ def summarize_tweets(tweets, summarizer, max_length=100):
         if len(text.split()) < 30:
             summarized_text = text
         else:
-            summary = summarizer(text, max_length=max_length, min_length=30, do_sample=False)
+            summary = summarizer(text, max_length=100, min_length=30, do_sample=False)
             summarized_text = summary[0]['summary_text']
         
         summarized_tweets.append({

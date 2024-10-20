@@ -10,7 +10,11 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
-import os
+import yaml
+
+# Load credentials from config.yaml
+with open("config/config.yaml", "r") as file:
+    config = yaml.safe_load(file)
 
 def send_email_with_attachment(to_address, subject, body, attachment_filename):
     """
@@ -25,8 +29,8 @@ def send_email_with_attachment(to_address, subject, body, attachment_filename):
     Returns:
         None
     """
-    from_address = os.getenv('EMAIL_USER')  # Your email address
-    password = os.getenv('EMAIL_PASS')  # Your email password (or an app password)
+    from_address = config['gmail']['email_sender']
+    password = config['gmail']['email_password']
 
     # Create email message
     msg = MIMEMultipart()
@@ -42,7 +46,7 @@ def send_email_with_attachment(to_address, subject, body, attachment_filename):
         part = MIMEBase('application', 'octet-stream')
         part.set_payload(attachment.read())
         encoders.encode_base64(part)
-        part.add_header('Content-Disposition', f'attachment; filename= {os.path.basename(attachment_filename)}')
+        part.add_header('Content-Disposition', f'attachment; filename= {attachment_filename}')
 
     # Attach the file to the email
     msg.attach(part)

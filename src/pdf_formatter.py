@@ -6,11 +6,9 @@ It uses the ReportLab library to format the tweets and output a PDF file.
 """
 
 from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 
 def generate_pdf(summarized_tweets, output_filename="twitter_digest.pdf"):
     """
