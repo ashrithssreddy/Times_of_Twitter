@@ -9,10 +9,10 @@ This is the main script for Times of Twitter. It coordinates the entire workflow
 5. Sends the PDF via email.
 """
 
-from twitter_extraction import authenticate_twitter, extract_tweets
-from summarizer import load_summarizer, summarize_tweets
-from pdf_formatter import generate_pdf
-from email_service import send_email_with_attachment
+from src.twitter_extraction import authenticate_twitter, extract_tweets
+from src.summarizer import load_summarizer, summarize_tweets
+from src.pdf_formatter import generate_pdf
+from src.email_service import send_email_with_attachment
 import yaml
 
 # Load email receiver from config.yaml
