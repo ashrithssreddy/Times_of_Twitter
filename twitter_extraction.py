@@ -22,3 +22,32 @@ def authenticate_twitter():
     
     return api
 
+# Step 2: Extract Tweets from Timeline
+def extract_tweets(api, count=10):
+    try:
+        # Get the user's home timeline tweets
+        tweets = api.home_timeline(count=count, tweet_mode='extended')
+        
+        tweet_data = []
+        for tweet in tweets:
+            tweet_data.append({
+                'id': tweet.id,
+                'created_at': tweet.created_at,
+                'text': tweet.full_text,
+                'user': tweet.user.screen_name
+            })
+        
+        return tweet_data
+
+    except Exception as e:
+        print(f"Error during tweet extraction: {e}")
+        return []
+
+# Main function to run the extraction
+if __name__ == "__main__":
+    api = authenticate_twitter()
+    tweets = extract_tweets(api, count=10)
+    
+    # Display extracted tweets
+    for tweet in tweets:
+        print(f"{tweet['created_at']} - {tweet['user']}: {tweet['text']}")
