@@ -35,3 +35,22 @@ def generate_pdf(summarized_tweets, output_filename="twitter_digest.pdf"):
     # Build the PDF document
     pdf.build(story)
     print(f"PDF generated: {output_filename}")
+
+# Example use case
+if __name__ == "__main__":
+    # Import the summarized tweets from summarizer.py
+    from summarizer import summarize_tweets, load_summarizer
+    from twitter_extraction import extract_tweets, authenticate_twitter
+    
+    # Step 1: Authenticate and extract tweets
+    api = authenticate_twitter()
+    tweets = extract_tweets(api, count=10)  # Fetch real tweets from the timeline
+    
+    # Step 2: Load the summarizer model
+    summarizer = load_summarizer()
+    
+    # Step 3: Summarize the extracted tweets
+    summarized_tweets = summarize_tweets(tweets, summarizer)
+    
+    # Step 4: Generate the PDF from summarized tweets
+    generate_pdf(summarized_tweets)
