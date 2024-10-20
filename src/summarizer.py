@@ -1,4 +1,4 @@
-from transformers import pipeline
+from src.twitter_extraction import extract_tweets
 
 # Step 1: Load Summarization Pipeline
 def load_summarizer():

@@ -1,10 +1,10 @@
 # main.py
 
 # Step 1: Import necessary modules
-from twitter_extraction import authenticate_twitter, extract_tweets
-from summarizer import load_summarizer, summarize_tweets
-from pdf_formatter import generate_pdf
-from email_service import send_email_with_attachment  # Assuming email service is built to send PDFs
+from src.twitter_extraction import authenticate_twitter, extract_tweets
+from src.summarizer import load_summarizer, summarize_tweets
+from src.pdf_formatter import generate_pdf
+from src.email_service import send_email_with_attachment
 
 # Main function to coordinate all steps
 def main():
