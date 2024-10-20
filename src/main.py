@@ -1,13 +1,26 @@
-# main.py
+"""
+main.py
 
-# Step 1: Import necessary modules
+This is the main script for Times of Twitter. It coordinates the entire workflow:
+1. Authenticates with the Twitter API.
+2. Extracts tweets from the user's timeline.
+3. Summarizes the tweets using AI.
+4. Generates a PDF with the summarized tweets.
+5. Sends the PDF via email.
+"""
+
 from src.twitter_extraction import authenticate_twitter, extract_tweets
 from src.summarizer import load_summarizer, summarize_tweets
 from src.pdf_formatter import generate_pdf
 from src.email_service import send_email_with_attachment
 
-# Main function to coordinate all steps
 def main():
+    """
+    Main function to coordinate the process of extracting, summarizing, and emailing tweets.
+
+    Returns:
+        None
+    """
     print("Starting Times of Twitter...")
 
     # Step 2: Authenticate and extract tweets

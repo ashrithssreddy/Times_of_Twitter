@@ -1,3 +1,10 @@
+"""
+email_service.py
+
+This module handles sending emails with attachments, such as the daily Twitter digest in PDF format.
+It uses SMTP to send the email with the file attachment.
+"""
+
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -6,6 +13,18 @@ from email import encoders
 import os
 
 def send_email_with_attachment(to_address, subject, body, attachment_filename):
+    """
+    Sends an email with an attachment.
+
+    Args:
+        to_address (str): Recipient email address.
+        subject (str): The subject of the email.
+        body (str): The body content of the email.
+        attachment_filename (str): The path to the file to be attached.
+
+    Returns:
+        None
+    """
     from_address = os.getenv('EMAIL_USER')  # Your email address
     password = os.getenv('EMAIL_PASS')  # Your email password (or an app password)
 
@@ -38,4 +57,3 @@ def send_email_with_attachment(to_address, subject, body, attachment_filename):
         print(f"Email sent to {to_address} successfully.")
     except Exception as e:
         print(f"Failed to send email: {e}")
-

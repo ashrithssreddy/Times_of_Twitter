@@ -1,23 +1,42 @@
-from src.twitter_extraction import extract_tweets
+"""
+summarizer.py
 
-# Step 1: Load Summarization Pipeline
+This module summarizes tweets using a pre-trained transformer model from Hugging Face.
+It processes the extracted tweets and provides concise summaries.
+"""
+
+from transformers import pipeline
+
 def load_summarizer():
-    # Using a pre-trained model from Hugging Face for summarization
+    """
+    Loads the pre-trained summarization model from Hugging Face.
+
+    Returns:
+        summarizer (transformers.Pipeline): Summarization model pipeline.
+    """
     summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
     return summarizer
 
-# Step 2: Summarize a List of Tweets
 def summarize_tweets(tweets, summarizer, max_length=100):
+    """
+    Summarizes a list of tweets using the provided summarizer model.
+
+    Args:
+        tweets (list): List of tweets to be summarized.
+        summarizer (Pipeline): Hugging Face model pipeline for summarization.
+        max_length (int): Maximum length of the summary.
+
+    Returns:
+        summarized_tweets (list): List of dictionaries with summarized tweets.
+    """
     summarized_tweets = []
 
     for tweet in tweets:
         text = tweet['text']
         
-        # If the tweet is already short, no need to summarize
-        if len(text.split()) < 30:  # Adjust word limit as needed
+        if len(text.split()) < 30:
             summarized_text = text
         else:
-            # Summarize the tweet (truncate long text, optional max_length)
             summary = summarizer(text, max_length=max_length, min_length=30, do_sample=False)
             summarized_text = summary[0]['summary_text']
         
@@ -30,22 +49,3 @@ def summarize_tweets(tweets, summarizer, max_length=100):
         })
     
     return summarized_tweets
-
-# Main function to run summarization
-if __name__ == "__main__":
-    # Import the extracted tweets from twitter_extraction.py
-    from twitter_extraction import extract_tweets, authenticate_twitter
-    
-    # Step 1: Authenticate and extract tweets
-    api = authenticate_twitter()
-    tweets = extract_tweets(api, count=10)  # Fetch real tweets from the timeline
-    
-    # Step 2: Load the summarizer model
-    summarizer = load_summarizer()
-    
-    # Step 3: Summarize the extracted tweets
-    summarized_tweets = summarize_tweets(tweets, summarizer)
-    
-    # Display summarized tweets
-    for tweet in summarized_tweets:
-        print(f"Original Tweet: {tweet['original_text']}\nSummary: {tweet['summary']}\n")
