@@ -9,6 +9,7 @@ import tweepy
 import yaml
 import pytz
 from datetime import datetime
+import pandas as pd
 
 # Load credentials from config.yaml
 with open("config/config.yaml", "r") as file:
@@ -47,7 +48,7 @@ def extract_tweets_from_timeline(api, count=10):
         count (int): Number of tweets to extract.
 
     Returns:
-        tweet_data (list): List of dictionaries containing tweet details.
+        tweet_data (DataFrame): DataFrame containing tweet details.
     """
     try:
         tweets = api.home_timeline(count=count, tweet_mode='extended')
@@ -61,11 +62,11 @@ def extract_tweets_from_timeline(api, count=10):
                 'user': tweet.user.screen_name
             })
         
-        return tweet_data
+        return pd.DataFrame(tweet_data)
 
     except Exception as e:
         print(f"Error during tweet extraction: {e}")
-        return []
+        return pd.DataFrame()
 
 
 def extract_top_tweets(api, keyword=None, start_time=None, end_time=None, timezone='UTC', count=10):
@@ -82,7 +83,7 @@ def extract_top_tweets(api, keyword=None, start_time=None, end_time=None, timezo
         count (int): Number of tweets to return.
 
     Returns:
-        tweet_data (list): List of dictionaries containing tweet details.
+        tweet_data (DataFrame): DataFrame containing tweet details.
     """
     try:
         # Convert start_time and end_time to the specified timezone
@@ -107,15 +108,14 @@ def extract_top_tweets(api, keyword=None, start_time=None, end_time=None, timezo
                 'id': tweet.id,
                 'created_at': tweet.created_at,
                 'text': tweet.text,
-                'user': tweet.author_id  # In Twitter API v2, 'author_id' is used instead of 'user.screen_name'
+                'user': tweet.author_id  # In Twitter API v2, 'author_id' is used instead of screen_name
             })
         
-        return tweet_data
+        return pd.DataFrame(tweet_data)
 
     except Exception as e:
         print(f"Error during tweet extraction: {e}")
-        return []
-
+        return pd.DataFrame()
 
 
 if __name__ == "__main__":
