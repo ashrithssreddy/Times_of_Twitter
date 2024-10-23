@@ -6,6 +6,7 @@ It processes the extracted tweets and provides concise summaries.
 """
 
 from transformers import pipeline
+import pandas as pd
 
 def load_summarizer():
     """
@@ -17,34 +18,34 @@ def load_summarizer():
     summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
     return summarizer
 
-def summarize_tweets(tweets, summarizer):
+def summarize_tweets(tweets_df, summarizer):
     """
-    Summarizes a list of tweets using the provided summarizer model.
+    Summarizes tweets using the provided summarizer model.
 
     Args:
-        tweets (list): List of tweets to be summarized.
+        tweets_df (DataFrame): DataFrame containing tweets to be summarized.
         summarizer (Pipeline): Hugging Face model pipeline for summarization.
 
     Returns:
-        summarized_tweets (list): List of dictionaries with summarized tweets.
+        summarized_tweets_df (DataFrame): DataFrame with summarized tweets.
     """
     summarized_tweets = []
 
-    for tweet in tweets:
-        text = tweet['text']
-        
+    for index, row in tweets_df.iterrows():
+        text = row['text']  # Assuming 'text' is the column name for the tweet content
+
+        # Skip short tweets
         if len(text.split()) < 30:
             summarized_text = text
         else:
-            summary = summarizer(text, max_length=100, min_length=30, do_sample=False)
-            summarized_text = summary[0]['summary_text']
-        
+            summarized_text = summarizer(text, max_length=50, min_length=25, do_sample=False)[0]['summary_text']
+
         summarized_tweets.append({
-            'id': tweet['id'],
-            'created_at': tweet['created_at'],
-            'user': tweet['user'],
-            'original_text': text,
+            'id': row['id'],
+            'created_at': row['created_at'],
+            'text': text,
             'summary': summarized_text
         })
-    
-    return summarized_tweets
+
+    # Return a DataFrame with the summarized tweets
+    return pd.DataFrame(summarized_tweets)
