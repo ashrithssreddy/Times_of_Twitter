@@ -10,12 +10,12 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
 
-def generate_pdf(summarized_tweets, output_filename="twitter_digest.pdf"):
+def generate_pdf(summarized_tweets_df, output_filename="twitter_digest.pdf"):
     """
     Generates a PDF from summarized tweets.
 
     Args:
-        summarized_tweets (list): List of dictionaries containing summarized tweets.
+        summarized_tweets_df (DataFrame): DataFrame containing summarized tweets.
         output_filename (str): Name of the output PDF file.
 
     Returns:
@@ -30,17 +30,11 @@ def generate_pdf(summarized_tweets, output_filename="twitter_digest.pdf"):
     story.append(title)
     story.append(Spacer(1, 0.25 * inch))
 
-    # Loop through the summarized tweets and add them to the PDF
-    for tweet in summarized_tweets:
-        heading = f"{tweet['user']} - {tweet['created_at']}"
-        heading_paragraph = Paragraph(heading, styles['Heading2'])
-        story.append(heading_paragraph)
+    # Loop through the DataFrame rows instead of a list
+    for index, row in summarized_tweets_df.iterrows():
+        tweet = row['text']  # Assuming 'text' is the column name for the tweet content
+        tweet_paragraph = Paragraph(tweet, styles['BodyText'])
+        story.append(tweet_paragraph)
+        story.append(Spacer(1, 0.15 * inch))
 
-        summary_paragraph = Paragraph(tweet['summary'], styles['BodyText'])
-        story.append(summary_paragraph)
-
-        story.append(Spacer(1, 0.5 * inch))
-
-    # Build the PDF document
     pdf.build(story)
-    print(f"PDF generated: {output_filename}")
