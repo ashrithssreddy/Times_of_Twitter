@@ -12,6 +12,7 @@ This is the main script for Times of Twitter. It coordinates the entire workflow
 from src.twitter_extraction import authenticate_twitter, extract_tweets_from_timeline
 from src.summarizer import load_summarizer, summarize_tweets
 from src.pdf_formatter import generate_pdf
+from src.html_formatter import generate_html_from_dataframe
 from src.email_service import send_email_with_attachment
 import yaml
 
